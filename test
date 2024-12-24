@@ -113,3 +113,46 @@ void loop() {
   
 }
 
+
+In file included from /run/arduino/sketches/Kelompok_10_Code_dec24a/Kelompok_10_Code_dec24a.ino:3:0:
+/var/run/arduino/directories-user/libraries/DS3231/DS3231.h:33:7: error: redefinition of 'class DateTime'
+ class DateTime {
+       ^~~~~~~~
+In file included from /run/arduino/sketches/Kelompok_10_Code_dec24a/Kelompok_10_Code_dec24a.ino:2:0:
+/var/run/arduino/directories-user/libraries/RTClib/src/RTClib.h:143:7: note: previous definition of 'class DateTime'
+ class DateTime {
+       ^~~~~~~~
+/run/arduino/sketches/Kelompok_10_Code_dec24a/Kelompok_10_Code_dec24a.ino: In function 'void setup()':
+/run/arduino/sketches/Kelompok_10_Code_dec24a/Kelompok_10_Code_dec24a.ino:39:13: error: 'class DS3231' has no member named 'begin'
+   if (! rtc.begin()) {
+             ^~~~~
+/run/arduino/sketches/Kelompok_10_Code_dec24a/Kelompok_10_Code_dec24a.ino:44:11: error: 'class DS3231' has no member named 'lostPower'
+   if (rtc.lostPower()) {
+           ^~~~~~~~~
+/run/arduino/sketches/Kelompok_10_Code_dec24a/Kelompok_10_Code_dec24a.ino: In function 'void loop()':
+/run/arduino/sketches/Kelompok_10_Code_dec24a/Kelompok_10_Code_dec24a.ino:83:21: error: 'class DS3231' has no member named 'now'
+  DateTime now = rtc.now();
+                     ^~~
+Multiple libraries were found for "DS3231.h"
+  Used: /run/arduino/directories-data/internal/DS3231_1.1.2_380a098ce8ec29a1
+  Not used: /run/arduino/directories-data/internal/DS3231_RTC_1.1.0_c841a9e1c8390c57
+Multiple libraries were found for "Wire.h"
+  Used: /run/arduino/directories-data/packages/arduino/hardware/renesas_uno/1.3.1/libraries/Wire
+  Not used: /run/arduino/directories-data/internal/FlexWire_1.2.1_1fc5f1d1a14af0e7
+Multiple libraries were found for "SPI.h"
+  Used: /run/arduino/directories-data/packages/arduino/hardware/renesas_uno/1.3.1/libraries/SPI
+  Not used: /run/arduino/directories-data/internal/EventEthernet_1.0.0_bd9dd894ef7641f8
+Multiple libraries were found for "RTC.h"
+  Used: /run/arduino/directories-data/packages/arduino/hardware/renesas_uno/1.3.1/libraries/RTC
+  Not used: /run/arduino/directories-data/internal/M5Core2_0.2.0_b8c417594bcb0714
+  Not used: /run/arduino/directories-data/internal/M5Station_0.0.1_59c962b74b2e5439
+  Not used: /run/arduino/directories-data/internal/M5StickCPlus_0.1.0_04b6c4774fdf0e9c
+  Not used: /run/arduino/directories-data/internal/M5StickC_0.3.0_a99c11f2c0b70886
+Multiple libraries were found for "RTClib.h"
+  Used: /run/arduino/directories-data/internal/RTClib_2.1.4_db516067a027af4e
+  Not used: /run/arduino/directories-data/internal/RTCLib_by_NeiroN_1.6.3_a9c57132e5e156d2
+  Not used: /run/arduino/directories-data/internal/BasicsLibrary_1.1.0_770ca478e475d7e5
+Multiple libraries were found for "Adafruit_I2CDevice.h"
+  Used: /run/arduino/directories-data/internal/Adafruit_BusIO_1.16.2_6b04f8b31fa0f1a8
+  Not used: /run/arduino/directories-data/internal/VEGAIoT_BusIO_1.0.0_68606b9abaf94dc3
+  Not used: /run/arduino/directories-data/internal/EIS_0.0.1_7b9a78c117637fbc
