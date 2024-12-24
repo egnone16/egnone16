@@ -1,0 +1,115 @@
+#include <WiredController_asukiaaa.h>
+#include <WiredController_asukiaaa.hpp>
+#include <wire_asukiaaa.h>
+#include <wire_asukiaaa_template.hpp>
+#include <WireData.h>
+#include <RTClib.h>
+#include <DS3231.h>
+#include <LiquidCrystal_I2C.h>
+#include "thingProperties.h"
+#include <Wire.h>
+
+
+char daysOfTheWeek[7][4] = {"Mi", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"};
+
+LiquidCrystal_I2C lcd(0x27,16,2);
+
+DS3231 rtc;
+
+int Day;
+int Month;
+int Year;
+int Secs;
+int Minutes;
+int Hours;
+ 
+String dofweek; // hari
+ 
+String myDate;
+String myTime;
+
+int vib_pin=7;
+int led_pin=8;
+
+void setup() {
+  Serial.begin(9600);
+
+  lcd.begin(16,2);
+  lcd.setCursor(2,0);
+  lcd.print("test");
+  lcd.setCursor(2,1);
+  lcd.print("test");
+  delay(2000); // delay 2 detik
+  lcd.clear();
+ 
+  if (! rtc.begin()) {
+  Serial.println("tidak menemukan RTC");
+  while (1);
+}
+ 
+  if (rtc.lostPower()) {
+  Serial.println("daya RTC hilang, set waktu");
+ 
+  // Comment out below lines once you set the date and time.
+  // Following line sets the RTC to the date &amp;amp;amp;amp;amp;amp;amp;amp; time this sketch was compiled
+  //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+ 
+  // Following line sets the RTC with an explicit date and time
+  // for example to set January 27 2017 at 12:56 you would call:
+  // rtc.adjust(DateTime(2017, 1, 27, 12, 56, 0));
+}
+
+  initProperties();
+
+  
+  ArduinoCloud.begin(ArduinoIoTPreferredConnection);
+  
+  
+  setDebugMessageLevel(2);
+  ArduinoCloud.printDebugInfo();
+  pinMode(vib_pin,INPUT);
+  pinMode(led_pin,OUTPUT);
+
+}
+
+void loop() {
+  ArduinoCloud.update();
+  int val;
+  val=digitalRead(vib_pin);
+  if(val==1)
+  {
+    digitalWrite(led_pin,HIGH);
+    delay(1000);
+    digitalWrite(led_pin,LOW);
+    delay(1000);
+   }
+   else
+   digitalWrite(led_pin,LOW); 
+
+ DateTime now = rtc.now();
+  lcd.clear();
+  Day = now.day();
+  Month = now.month();
+  Year = now.year();
+  Secs = now.second();
+  Hours = now.hour();
+  Minutes = now.minute();
+  dofweek = daysOfTheWeek[now.dayOfTheWeek()]; 
+ 
+  myDate = myDate +dofweek+ ", "+ Day + "/" + Month + "/" + Year ;
+  myTime = myTime + Hours +":"+ Minutes +":" + Secs ;
+  // send to serial monitor
+  Serial.println(dofweek);
+  Serial.println(myDate);
+  Serial.println(myTime);
+  //Print on lcd
+  lcd.setCursor(0,0);
+  lcd.print(myDate);
+  lcd.setCursor(0,1);
+  lcd.print("Jam: "+myTime);
+  myDate = "";
+  myTime = "";
+  delay(1000);
+  
+}
+
